@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Regional Data Platform</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.17/esri/themes/dark-green/main.css"
+    />
+    <script src="https://js.arcgis.com/4.17/"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+
+  
+  
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 80%;
+        width: 100%;
+      }
+        .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+  
+    </style>
+
+    <script>
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/layers/FeatureLayer",
+        "esri/widgets/Legend"
+      ], function (Map, MapView, FeatureLayer, Legend) {
+        const defaultSym = {
+          type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+          color: [0, 0, 0, 0],
+          outline: {
+            // autocasts as new SimpleLineSymbol()
+            color: "#71de6e",
+            width: 1
+          }
+        };
+
+        /*****************************************************************
+         * Set a size visual variable on the renderer. Size visual variables
+         * create continuous ramps that map low data values to small icons
+         * and high data values to large icons. Features
+         * with data values in between the min and max data values are assigned
+         * a size proportionally between the min and max sizes specified in
+         * `minSize` and `maxSize` or `stops`.
+         *****************************************************************/
+
+   var popuoCOP= {
+        "title": "{iso3}",
+        
+        "content": "<b>Country :</b> {iso3}<br><b>Type of Camp:</b> {loc_type} <br><b>Location:</b> {name}<br><b> Created on :</b> {createdate}<br><b> Updated on :</b> {updatedate}<br><b> Source :</b> {source}<br><b> Footnote :</b> {footnote}"
+         
+      }
+
+        const pocLayer = new FeatureLayer({
+          url:
+            "https://gis.unhcr.org/arcgis/rest/services/core/wrl_ppl_poc_p_unhcr/MapServer/0/",
+         outFields: ["iso3","pcode","iso3","name","loc_type","updatedate"],
+           fieldInfos: [
+            {
+              fieldName: "updatedate",
+              format: {
+                dateFormat: "short-date",
+              }
+            }
+          ],
+      
+        popupTemplate: popuoCOP
+        });
+
+        const map = new Map({
+          basemap: "dark-gray-vector",
+          layers: [pocLayer]
+        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          center: [33.2232, 43.6793],
+          zoom: 3
+        });
+
+        /******************************************************************
+         *
+         * Add layers to layerInfos on the legend
+         *
+         ******************************************************************/
+
+        view.ui.add(
+          new Legend({
+            view: view
+          }),
+          "top-right"
+        );
+      });
+    </script>
+  
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Regional Data Platform</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Data </a></li>
+       
+      </ul>
+    </div>
+  </div>
+</nav>
+
+ <div id="viewDiv"></div>
+
+
+<div class="container">
+    <br>
+  <div class="row">
+    <div class="col-sm-3">
+   
+    <button type="button" class="btn btn-outline-light text-dark">Data</button>
+    <button type="button" class="btn btn-outline-light text-dark">About</button>
+     <br> <br>
+   <ul class="nav nav-pills nav-stacked">
+   <li>
+    <input type="radio" class="form-check-input"  id="materialGroupExample1" name="groupOfMaterialRadios">
+  <label class="form-check-label" for="materialGroupExample1">People of Concern UNHCR</label></li>
+
+ <li> <input type="radio" class="form-check-input"  id="materialGroupExample2" name="groupOfMaterialRadios" checked>
+  <label class="form-check-label" for="materialGroupExample2">Slum Data by Shelter</label></li>
+
+
+
+ <li> <input type="radio" class="form-check-input"  id="materialGroupExample3" name="groupOfMaterialRadios">
+  <label class="form-check-label" for="materialGroupExample3">Third Layer</label></li>
+  </ul>
+   <hr class="hidden-sm hidden-md hidden-lg">
+    </div>
+    <div class="col-sm-8">
+      <h4><b>ECONOMICE AND MIGRATION</b></h4>
+ 
+      <div class="fakeimg">Graph</div>
+  
+    
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+        <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+  </div>
+</div>
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+  <p>Footer</p>
+</div>
+
+</body>
+</html>
