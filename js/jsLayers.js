@@ -57,6 +57,15 @@
           center: [33.2232, 43.6793],
           zoom: 3
         });
+        
+        	/*****
+		for hiding & displaying first layer on the map **/
+	
+	var checkbox = document.getElementById("Checkbox1");
+checkbox.onclick = function () {
+  pocLayer.visible = this.checked;
+}
+
 
         /******************************************************************
          *
