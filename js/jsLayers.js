@@ -23,7 +23,7 @@
          * `minSize` and `maxSize` or `stops`.
          *****************************************************************/
 
-   var popuoCOP= {
+   var popupCOP= {
         "title": "{iso3}",
         
         "content": "<b>Country :</b> {iso3}<br><b>Type of Camp:</b> {loc_type} <br><b>Location:</b> {name}<br><b> Created on :</b> {createdate}<br><b> Updated on :</b> {updatedate}<br><b> Source :</b> {source}<br><b> Footnote :</b> {footnote}"
@@ -43,7 +43,7 @@
             }
           ],
       
-        popupTemplate: popuoCOP
+        popupTemplate: popupCOP
         });
 
         const map = new Map({
