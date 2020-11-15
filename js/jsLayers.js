@@ -14,16 +14,9 @@
           }
         };
 
-        /*****************************************************************
-         * Set a size visual variable on the renderer. Size visual variables
-         * create continuous ramps that map low data values to small icons
-         * and high data values to large icons. Features
-         * with data values in between the min and max data values are assigned
-         * a size proportionally between the min and max sizes specified in
-         * `minSize` and `maxSize` or `stops`.
-         *****************************************************************/
+        
 
-   var popupCOP= {
+   var pocPopup= {
         "title": "{iso3}",
         
         "content": "<b>Country :</b> {iso3}<br><b>Type of Camp:</b> {loc_type} <br><b>Location:</b> {name}<br><b> Created on :</b> {createdate}<br><b> Updated on :</b> {updatedate}<br><b> Source :</b> {source}<br><b> Footnote :</b> {footnote}"
@@ -43,7 +36,7 @@
             }
           ],
       
-        popupTemplate: popupCOP
+        popupTemplate: pocPopup
         });
 
         const map = new Map({
