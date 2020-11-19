@@ -6,7 +6,23 @@
         height: 80%;
         width: 100%;
       }
-        .fakeimg {
-    height: 200px;
-    background: #aaa;
+ 
+ tfoot input {
+    width: 100%;
+    font-size: 8pt;
+    padding: 1px;
+    box-sizing: border-box;
   }
+
+
+
+  table {
+    border-collapse: collapse;
+  }
+  th {
+    text-align: center;
+  }
+  td {
+    text-align: center;
+  }
+   
