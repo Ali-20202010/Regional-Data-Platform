@@ -14,7 +14,14 @@
           }
         };
 
-        
+        /*****************************************************************
+         * Set a size visual variable on the renderer. Size visual variables
+         * create continuous ramps that map low data values to small icons
+         * and high data values to large icons. Features
+         * with data values in between the min and max data values are assigned
+         * a size proportionally between the min and max sizes specified in
+         * `minSize` and `maxSize` or `stops`.
+         *****************************************************************/
 
    var pocPopup= {
         "title": "{iso3}",
@@ -50,14 +57,16 @@
           center: [33.2232, 43.6793],
           zoom: 3
         });
-        
-        	/*****
+		
+		
+	/*****
 		for hiding & displaying first layer on the map **/
 	
 	var checkbox = document.getElementById("Checkbox1");
 checkbox.onclick = function () {
   pocLayer.visible = this.checked;
 }
+	
 
 
         /******************************************************************
@@ -73,6 +82,7 @@ checkbox.onclick = function () {
           "top-left"
         );
       });
+
 // displaying json data in table
 	$(document).ready(function() {
 
