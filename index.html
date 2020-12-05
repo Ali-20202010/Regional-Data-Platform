@@ -3,11 +3,8 @@
 <head>
 <!-- Have to do this to support Internet Explorer -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-
 <script type="text/javascript" src="http://www.maine.gov/awt/js5/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" language="javascript" src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-
 <!-- Include these references if using export buttons -->
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
@@ -16,33 +13,25 @@
 <script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
 <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-
-
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 <!-- CSS styles for export buttons -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
 <!-- -->
-   <link
-      rel="stylesheet"
-      href="https://js.arcgis.com/4.17/esri/themes/dark-green/main.css"
-    />
-    <script src="https://js.arcgis.com/4.17/"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/themes/light/main.css"/>
+   <script src="https://js.arcgis.com/4.17/"></script>
  
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ 
+  
    <script src="js/jsLayers.js"></script>
   <link rel="stylesheet" type="text/css" href="css/stylesheet.css" >
+   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" >
 
 
 <!-- Heading for above the table -->
 
 
 <!-- Include this style tag if adding search fields to the footer of the table -->
-
-
-
-
-	</head>
+</head>
 <body>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -81,21 +70,65 @@
     <button type="button" class="btn btn-outline-light text-dark">Data</button>
     <button type="button" class="btn btn-outline-light text-dark">About</button>
      <br> <br>
-
-  <div class="form-check">
-  <ul class="nav nav-pills nav-stacked">
-   <li>
-<input class="form-check-input" type="checkbox" id="Checkbox1" value="Layer1" checked>
-<label class="form-check-label" for="Checkbox1">People of Concern UNHCR</label></li>
- <li>
-<input class="form-check-input" type="checkbox" id="Checkbox2" value="Layer2">
-<label class="form-check-label" for="Checkbox2">Slum Data by Shelter</label></li>
- <li>
-<input class="form-check-input" type="checkbox" id="Checkbox3" value="Layer3">
-<label class="form-check-label" for="Checkbox3">Third Layer</label></li>
-</ul>
-
-</div>
+    <span id="layerToggle" class="esri-widget">
+      <ul id="myUL" >
+      <li ><span class="caret">Displacement Data </span>
+    <ul class="nested">
+   <li> <input type="checkbox" id="pocsLayer" /> People of Concern UNHCR</li>
+      <li> <input type="checkbox" id="layer07" /> Layer2</li>
+      <li> <input type="checkbox" id="clayer08" /> Layer3 </li>
+      
+         
+            </ul>
+             
+          </li>
+          <br>
+  <li ><span class="caret" >Urban Database</span>
+    <ul class="nested">
+    <li> <input type="checkbox" id="layer01" />Layer1</li>
+      <li> <input type="checkbox" id="layer02" /> Layer2</li>
+      <li> <input type="checkbox" id="layer03" /> Layer 3 </li>
+      
+         
+            </ul>
+          </li>
+          <br>
+          <li ><span class="caret">National Statistics </span>
+    <ul class="nested">
+    <li> <input type="checkbox" id="layer04" /> Layer1</li>
+      <li> <input type="checkbox" id="layer05" /> Layer2</li>
+      <li> <input type="checkbox" id="layer06" /> Layer3 </li>
+      
+         
+            </ul>
+          </li>
+           <br>
+    
+          
+          <li ><span class="caret">Humanetarian Data</span>
+    <ul class="nested">
+    <li> <input type="checkbox" id="layer09" /> Layer1</li>
+      <li> <input type="checkbox" id="layer10" /> Layer2</li>
+      <li> <input type="checkbox" id="layer11" /> Layer3</li>
+      
+         
+            </ul>
+          </li>
+         <br>
+          <li ><span class="caret">Enviromental Data</span>
+    <ul class="nested">
+    <li> <input type="checkbox"  id="chgTempsLayer" /> Chgange in temperature Midcentury from 2046 to 2065</li>
+      <li> <input type="checkbox" id="tempsLayer" /> Temperature from 1986 to 2005</li>
+      <li> <input type="checkbox"  id="landsLayer" /> Land Use Land Cover Arab Region  </li>
+       <li> <input type="checkbox" id="cropLandsLayer" /> Irrigated Croplands Arab Region </li>
+      
+         
+            </ul>
+          </li>
+        </ul>
+    
+    </span>
+	
    <hr class="hidden-sm hidden-md hidden-lg">
     </div>
     <div class="col-sm-8">
@@ -130,10 +163,7 @@
     </div>
 	</div>
 	</div>
-	
-
-
-<div class="jumbotron text-center" style="margin-bottom:0">
+	<div class="jumbotron text-center" style="margin-bottom:0">
   <p>Footer</p>
 </div>
 
