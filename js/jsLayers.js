@@ -153,7 +153,8 @@ for (i = 0; i < toggler.length; i++) {
       });
 
 
-
+/********************************************************************************************************************************/
+// displaying json data in table
 	 $(document).ready(function() {
 
     $('#landings_table tfoot th').each( function () { // Change table element ID here
@@ -163,7 +164,7 @@ for (i = 0; i < toggler.length; i++) {
    
     var url ="https://gis.unhcr.org/arcgis/rest/services/core/wrl_prp_p_unhcr/FeatureServer/0/query?where=1%3D1&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&distance=0.0&units=esriSRUnit_Meter&relationParam=&outFields=*&returnGeometry=true&maxAllowableOffset=&geometryPrecision=&outSR=&gdbVersion=&historicMoment=&returnDistinctValues=false&returnIdsOnly=false&returnCountOnly=false&returnExtentOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&multipatchOption=&resultOffset=&resultRecordCount=1000&returnTrueCurves=false&sqlFormat=none&f=pjson";  
 		var table = $('#landings_table').DataTable({ // Change table element ID here
-        dom: 'Bfrtip', 
+        dom: 'Bfrtip', // Add this to enable export buttons
         buttons: [ 
             'csv', 'excel', 'pdf'
         ],
@@ -180,10 +181,10 @@ for (i = 0; i < toggler.length; i++) {
         "stateSave": false, 	
 		"scrollCollapse": true, 	 		
 		"ajax": { 
-			"url": url, 
+			"url": url, // JSON URL
 			"dataSrc": "features" 
 		},
-		"columns": [  
+		"columns": [ // Location within the JSON of each column to pipe into the HTML table, in order of columns. 
 			{ data: "attributes.adm0name" },
 			{ data: "attributes.name"},
 			{ data: "attributes.adm2name"},
