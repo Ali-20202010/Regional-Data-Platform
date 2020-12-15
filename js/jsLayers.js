@@ -40,14 +40,14 @@
         var tempLayer = new TileLayer({
           url:
             "https://tiles.arcgis.com/tiles/S9LAFnsxHsSpUJFQ/arcgis/rest/services/Temperature_1986_2005/MapServer",
-        
+         
           id: "temps",
           visible: false
         });
             var landLayer = new TileLayer({
           url:
             "https://tiles.arcgis.com/tiles/S9LAFnsxHsSpUJFQ/arcgis/rest/services/Land_Use_Land_Cover_Arab_Region/MapServer",
-      
+          
           id: "lands",
           visible: false
         });
@@ -58,9 +58,7 @@
          visible: false
         });
 
-        /*****************************************************************
-         * Layers may be added to the map in the map's constructor
-         *****************************************************************/
+       
         var map = new Map({
           basemap: "dark-gray-vector",
           layers: [pocLayer, cropLandLayer, chgTempLayer, tempLayer,landLayer]
@@ -70,7 +68,8 @@
 
         var view = new MapView({
           container: "viewDiv",
-          map: map
+          map: map,
+		  zoom:1
         });
 		        view.ui.add(
           new Legend({
@@ -79,8 +78,7 @@
           "top-right"
         );
         
-        
-
+     
         view.on("layerview-create", function (event) {
             if (event.layer.id === "poc-UNHCR") {
            
@@ -93,15 +91,16 @@
               "LayerView for Arab Crop Lands created!", event.layerView);
           }
           if (event.layer.id === "chgTemp") {
-           
+          
             console.log("LayerView for Tempreature 2046-2065 created!", event.layerView);
           }
             if (event.layer.id === "lands") {
-            
+            // Explore the properties of the transportation layer's layer view here
+            // Explore the properties of the transportation layer's layer view here
             console.log("LayerView for Land use created!", event.layerView);
           }
           if (event.layer.id === "temps") {
-         
+          
             console.log("LayerView for temperature  created!", event.layerView);
           }
         });
@@ -122,13 +121,12 @@
         });
         var chgTempLayerToggle = document.getElementById("chgTempsLayer");
 
-       
+      
         chgTempLayerToggle.addEventListener("change", function () {
          chgTempLayer.visible = chgTempLayerToggle.checked;
         });
             var landLayerToggle = document.getElementById("landsLayer");
 
-        
         landLayerToggle.addEventListener("change", function () {
           landLayer.visible = landLayerToggle.checked;
         });
@@ -140,12 +138,6 @@
         });
         var cropLandLayerToggle = document.getElementById("cropLandsLayer");
 
-        /*****************************************************************
-         * The visible property on the layer can be used to toggle the
-         * layer's visibility in the view. When the visibility is turned off
-         * the layer is still part of the map, which means you can access
-         * its properties and perform analysis even though it isn't visible.
-         *******************************************************************/
         cropLandLayerToggle.addEventListener("change", function () {
           cropLandLayer.visible = cropLandLayerToggle.checked;
         });
@@ -161,8 +153,7 @@ for (i = 0; i < toggler.length; i++) {
       });
 
 
-/********************************************************************************************************************************/
-// displaying json data in table
+
 	 $(document).ready(function() {
 
     $('#landings_table tfoot th').each( function () { // Change table element ID here
@@ -189,10 +180,10 @@ for (i = 0; i < toggler.length; i++) {
         "stateSave": false, 	
 		"scrollCollapse": true, 	 		
 		"ajax": { 
-			"url": url, // JSON URL
+			"url": url, 
 			"dataSrc": "features" 
 		},
-		"columns": [ // Location within the JSON of each column to pipe into the HTML table, in order of columns. 
+		"columns": [  
 			{ data: "attributes.adm0name" },
 			{ data: "attributes.name"},
 			{ data: "attributes.adm2name"},
