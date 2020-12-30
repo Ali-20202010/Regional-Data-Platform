@@ -1,11 +1,80 @@
-     require([
-        "esri/Map",
-        "esri/views/MapView",
-         "esri/layers/FeatureLayer",
-        "esri/widgets/Legend",
-        "esri/layers/TileLayer"
-      ], function (Map, MapView,FeatureLayer,Legend, TileLayer) {
+  var map;
+  require([
+      "esri/Map",
+      "esri/views/MapView",
+      "dojo/on",
+      "esri/tasks/support/Query",
+      "esri/layers/FeatureLayer",
+	  "esri/layers/TileLayer",
+      "dojo/store/Memory",
+      "dojo/_base/array",
+      "dojo/_base/lang",
+      "esri/request",
+      "dojo/parser",
+      "dijit/registry",
+      "esri/widgets/Search",
+	   "esri/widgets/Legend",
+
+      "dijit/layout/BorderContainer",
+      "dijit/layout/ContentPane",
+      "dijit/form/Button",
+      "dijit/form/ComboBox",
+      "dojo/domReady!"
+    ], function(
+      Map, MapView, on, Query, FeatureLayer,TileLayer, Memory, array, lang, esriRequest, parser, registry, Search,Legend
+    ) {
+      parser.parse();
+       map = new Map({
+          basemap: "dark-gray-vector",
+         
+        });
+
        
+
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+		  center: [26.8206, 30.8025],
+		zoom: 5
+        });
+		        view.ui.add(
+          new Legend({
+            view: view
+          }),
+          "top-right"
+        );
+		
+		  var searchWidget = new Search({
+        view: view,
+        container: "searchDiv"
+      });
+	  
+	     esriRequest('https://services7.arcgis.com/S9LAFnsxHsSpUJFQ/arcgis/rest/services/Arab_countries_map/FeatureServer/0/query?where=1%3D1&outFields=CNTRY_NAME&returnGeometry=false&orderByFields=CNTRY_NAME&returnDistinctValues=true&f=json',
+      {
+        responseType:'json',
+        timeout:15000
+      }).then(lang.hitch(this,function(response){
+        var store2 = new Memory({data:[]});
+        registry.byId("countrySelect").set('store',store2);
+        var data = array.map(response.data.features,lang.hitch(this,function(feat, index){
+          var name = feat.attributes.CNTRY_NAME;
+          var value = feat.attributes.CNTRY_NAME;
+          var dataItem = {
+            id:index,
+            name,
+            value:value
+          };
+          return dataItem;
+        }));
+        store2 = new Memory({data:data});
+        registry.byId("countrySelect").set('store',store2);
+      }));
+
+  var Countries = new FeatureLayer({
+        url: "https://services7.arcgis.com/S9LAFnsxHsSpUJFQ/arcgis/rest/services/Arab_countries_map/FeatureServer/0",
+        outFields: ["*"]
+      });
+	        
         var pocPopup= {
         "title": "{iso3}",
         
@@ -57,27 +126,9 @@
           id: "Ar-cropLand",
          visible: false
         });
+		
+		
 
-       
-        var map = new Map({
-          basemap: "dark-gray-vector",
-          layers: [pocLayer, cropLandLayer, chgTempLayer, tempLayer,landLayer]
-        });
-
-       
-
-        var view = new MapView({
-          container: "viewDiv",
-          map: map,
-		  zoom:1
-        });
-		        view.ui.add(
-          new Legend({
-            view: view
-          }),
-          "top-right"
-        );
-        
      
         view.on("layerview-create", function (event) {
             if (event.layer.id === "poc-UNHCR") {
@@ -150,7 +201,50 @@ for (i = 0; i < toggler.length; i++) {
     
   });
 }
-      });
+     
+app = {
+        zoomRow: function(id, which){
+          var cb = registry.byId("countrySelect");
+          console.info(cb.item.value);
+          var sym = {
+            type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+            color: [255, 255, 255, .12],
+		   
+            outline: {  // autocasts as new SimpleLineSymbol()
+              color: [128, 128, 128, 1],
+              width: "0.5px"
+            }
+          }, gra;
+          view.graphics.removeAll();
+          var query = Countries.createQuery();
+          var thePoly, theExtent;
+          if(which == "Country"){
+            query.outFields=[];
+            query.outSpatialReference = view.spatialReference;
+            query.where = "CNTRY_NAME='" + (id).toString() + "'";
+            console.info(query.where);
+            query.returnGeometry = true;
+            Countries.queryFeatures(query).then(function(response){
+              gra = response.features[0];
+              gra.symbol = sym;
+              view.graphics.add(gra);
+              thePoly = gra.geometry;
+              theExtent = thePoly.extent.expand(.7); //Zoom out slightly from the polygon's extent
+              view.goTo(theExtent);
+            });
+         
+      
+          } 
+        }
+      };
+	map.add(pocLayer),
+	  map.add(chgTempLayer),
+	 map.add(tempLayer),
+	  map.add(cropLandLayer),
+	  map.add(landLayer)
+
+	 });
+
 
 
 /********************************************************************************************************************************/
